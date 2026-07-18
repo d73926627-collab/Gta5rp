@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', monospace;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
         body {
             background: #0a0a14;
@@ -38,7 +38,6 @@
             text-align: center;
             color: #fbbf24;
             margin-bottom: 16px;
-            letter-spacing: 2px;
         }
 
         .field {
@@ -50,7 +49,6 @@
             color: #6b7a93;
             margin-bottom: 2px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
         .field input {
             width: 100%;
@@ -61,8 +59,6 @@
             color: #fff;
             font-size: 14px;
             outline: none;
-            transition: 0.2s;
-            font-family: 'Segoe UI', sans-serif;
         }
         .field input:focus {
             border-color: #fbbf24;
@@ -80,7 +76,6 @@
             font-size: 16px;
             cursor: pointer;
             transition: 0.15s;
-            box-shadow: 0 8px 30px rgba(251, 191, 36, 0.15);
             margin-top: 6px;
         }
         .btn:active {
@@ -88,72 +83,112 @@
             opacity: 0.8;
         }
 
-        /* ===== УДОСТОВЕРЕНИЕ (как на фото) ===== */
+        /* ===== УДОСТОВЕРЕНИЕ (как ты сказал) ===== */
         .id-card {
-            background: #0b0b12;
+            background: #f5f0e8;
             border-radius: 16px;
-            padding: 24px 18px 18px;
-            border: 3px solid #d4a017;
-            box-shadow: 0 0 50px rgba(212, 160, 23, 0.06);
+            padding: 20px 16px;
+            border: 3px solid #b8860b;
             display: none;
-            color: #d4a017;
-            font-family: 'Courier New', monospace;
+            color: #1a1a2e;
             position: relative;
         }
         .id-card.active {
             display: block;
         }
 
-        .id-card .header {
-            text-align: center;
-            font-size: 15px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #d4a017;
-            border-bottom: 2px solid #d4a017;
-            padding-bottom: 8px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        .id-card .header .sub {
-            font-size: 10px;
-            font-weight: 400;
-            color: #a08050;
-            letter-spacing: 1px;
+        .id-card .top {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 2px solid #b8860b;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
         }
 
-        .id-card .row {
+        .id-card .photo {
+            width: 80px;
+            height: 100px;
+            background: #d0c8b8;
+            border-radius: 8px;
+            border: 2px solid #b8860b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #4a3a2a;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .id-card .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .id-card .right {
+            flex: 1;
+            text-align: center;
+            font-size: 48px;
+            line-height: 1;
+            color: #b8860b;
+        }
+
+        /* РАЗРЕЗ (вертикальная линия) */
+        .id-card .divider {
+            width: 100%;
+            height: 2px;
+            background: #b8860b;
+            margin: 8px 0 12px 0;
+            position: relative;
+        }
+        .id-card .divider::after {
+            content: '•••';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -8px;
+            background: #f5f0e8;
+            padding: 0 8px;
+            color: #b8860b;
+            font-size: 12px;
+            letter-spacing: 4px;
+        }
+
+        .id-card .data {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 12px;
+            margin-top: 4px;
+        }
+        .id-card .data .item {
             display: flex;
             justify-content: space-between;
             padding: 4px 0;
             font-size: 13px;
-            border-bottom: 1px dashed #2a2a3a;
+            border-bottom: 1px dashed #d0c8b8;
         }
-        .id-card .row:last-child {
-            border-bottom: none;
-        }
-        .id-card .row .label {
-            color: #a08050;
+        .id-card .data .item .label {
+            color: #6a5a4a;
             font-weight: 600;
         }
-        .id-card .row .value {
+        .id-card .data .item .value {
             font-weight: 700;
-            color: #d4a017;
+            color: #1a1a2e;
             text-align: right;
         }
 
-        .id-card .stamp {
-            text-align: center;
+        .id-card .bottom {
             margin-top: 12px;
+            text-align: center;
             font-size: 11px;
-            color: #a08050;
-            border-top: 1px solid #2a2a3a;
+            color: #4a3a2a;
+            border-top: 1px solid #b8860b;
             padding-top: 10px;
-            letter-spacing: 1px;
         }
-        .id-card .stamp .date {
+        .id-card .bottom .date {
             font-weight: 700;
-            color: #d4a017;
+            color: #b8860b;
         }
 
         .reset-btn {
@@ -171,21 +206,43 @@
         .reset-btn:active {
             background: #1a1a2e;
         }
+
+        .photo-upload {
+            margin-bottom: 12px;
+        }
+        .photo-upload label {
+            font-size: 12px;
+            color: #8f9bb3;
+        }
+        .photo-upload input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid #2a2a44;
+            background: #0d0d18;
+            color: #fff;
+            margin-top: 4px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
 
     <div class="card">
-        <div class="title">🪪 Генератор удостоверений</div>
+        <div class="title">🪪 Создать удостоверение</div>
+
+        <div class="photo-upload">
+            <label>📸 Фото</label>
+            <input type="file" id="photoInput" accept="image/*">
+        </div>
 
         <div class="field">
             <label>Имя</label>
-            <input type="text" id="name" placeholder="Egor">
+            <input type="text" id="name" placeholder="Егор">
         </div>
         <div class="field">
             <label>Фамилия</label>
-            <input type="text" id="surname" placeholder="Famin">
+            <input type="text" id="surname" placeholder="Фамин">
         </div>
         <div class="field">
             <label>Звание</label>
@@ -193,47 +250,37 @@
         </div>
         <div class="field">
             <label>Подразделение</label>
-            <input type="text" id="division" placeholder="Управление полиции BLACK RUSSIA">
+            <input type="text" id="division" placeholder="Управление «К»">
         </div>
         <div class="field">
             <label>Организация</label>
-            <input type="text" id="organization" placeholder="МВД ЮЖНОГО (RP)">
+            <input type="text" id="organization" placeholder="МВД РФ">
         </div>
 
-        <button class="btn" id="generateBtn">Создать удостоверение</button>
+        <button class="btn" id="generateBtn">Создать</button>
     </div>
 
-    <!-- Удостоверение как на фото -->
+    <!-- Удостоверение -->
     <div class="card id-card" id="idCard">
-        <div class="header">
-            🛡️ МВД ЮЖНОГО (RP)
-            <div class="sub">BLACK RUSSIA</div>
+        <div class="top">
+            <div class="photo" id="photoBox">👤</div>
+            <div class="right">🛡️</div>
         </div>
 
-        <div class="row">
-            <span class="label">Имя</span>
-            <span class="value" id="outName">—</span>
-        </div>
-        <div class="row">
-            <span class="label">Фамилия</span>
-            <span class="value" id="outSurname">—</span>
-        </div>
-        <div class="row">
-            <span class="label">Звание</span>
-            <span class="value" id="outRank">—</span>
-        </div>
-        <div class="row">
-            <span class="label">Подразделение</span>
-            <span class="value" id="outDivision">—</span>
-        </div>
-        <div class="row">
-            <span class="label">Организация</span>
-            <span class="value" id="outOrg">—</span>
+        <!-- РАЗРЕЗ -->
+        <div class="divider"></div>
+
+        <div class="data">
+            <div class="item"><span class="label">Имя</span><span class="value" id="outName">—</span></div>
+            <div class="item"><span class="label">Фамилия</span><span class="value" id="outSurname">—</span></div>
+            <div class="item" style="grid-column: 1 / -1;"><span class="label">Звание</span><span class="value" id="outRank">—</span></div>
+            <div class="item" style="grid-column: 1 / -1;"><span class="label">Подразделение</span><span class="value" id="outDivision">—</span></div>
+            <div class="item" style="grid-column: 1 / -1;"><span class="label">Организация</span><span class="value" id="outOrg">—</span></div>
         </div>
 
-        <div class="stamp">
-            🟡 Личный № 616661 · RP-ID № 77777
-            <div style="font-size:9px; color:#a08050; margin-top:4px;">Действительно до 01.01.2026 г.</div>
+        <div class="bottom">
+            🟡 Действительно до 01.01.2026 г.
+            <div style="font-size:10px; color:#6a5a4a; margin-top:2px;">Подпись: _____________</div>
         </div>
 
         <button class="reset-btn" id="resetBtn">Создать новое</button>
@@ -247,22 +294,43 @@
     const rankInput = document.getElementById('rank');
     const divisionInput = document.getElementById('division');
     const orgInput = document.getElementById('organization');
+    const photoInput = document.getElementById('photoInput');
     const generateBtn = document.getElementById('generateBtn');
     const resetBtn = document.getElementById('resetBtn');
     const idCard = document.getElementById('idCard');
+    const photoBox = document.getElementById('photoBox');
+
+    let uploadedPhoto = null;
+
+    photoInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                uploadedPhoto = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 
     function generate() {
-        const name = nameInput.value.trim() || 'Egor';
-        const surname = surnameInput.value.trim() || 'Famin';
+        const name = nameInput.value.trim() || 'Егор';
+        const surname = surnameInput.value.trim() || 'Фамин';
         const rank = rankInput.value.trim() || 'Капитан полиции';
-        const division = divisionInput.value.trim() || 'Управление полиции BLACK RUSSIA';
-        const org = orgInput.value.trim() || 'МВД ЮЖНОГО (RP)';
+        const division = divisionInput.value.trim() || 'Управление «К»';
+        const org = orgInput.value.trim() || 'МВД РФ';
 
         document.getElementById('outName').textContent = name;
         document.getElementById('outSurname').textContent = surname;
         document.getElementById('outRank').textContent = rank;
         document.getElementById('outDivision').textContent = division;
         document.getElementById('outOrg').textContent = org;
+
+        if (uploadedPhoto) {
+            photoBox.innerHTML = `<img src="${uploadedPhoto}" alt="фото">`;
+        } else {
+            photoBox.innerHTML = '👤';
+        }
 
         idCard.classList.add('active');
     }
@@ -273,6 +341,9 @@
         rankInput.value = '';
         divisionInput.value = '';
         orgInput.value = '';
+        photoInput.value = '';
+        uploadedPhoto = null;
+        photoBox.innerHTML = '👤';
         idCard.classList.remove('active');
     }
 
@@ -280,4 +351,4 @@
     resetBtn.addEventListener('click', resetForm);
 </script>
 </body>
-</html>                
+</html>
