@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Мой ПК</title>
+    <title>Мой ПК из картона</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -19,8 +20,6 @@
             min-height: 100vh;
             padding: 16px;
         }
-
-        /* Монитор */
         .monitor {
             max-width: 420px;
             width: 100%;
@@ -28,7 +27,7 @@
             border-radius: 24px;
             padding: 16px 12px 12px;
             border: 6px solid #2a2a44;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8), inset 0 0 60px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
             position: relative;
         }
         .monitor::after {
@@ -42,18 +41,14 @@
             background: #2a2a44;
             border-radius: 0 0 12px 12px;
         }
-
-        /* Экран */
         .screen {
             background: #0d0d1a;
             border-radius: 16px;
             padding: 16px 12px;
-            min-height: 520px;
+            min-height: 500px;
             border: 1px solid #1a1a30;
             position: relative;
         }
-
-        /* Рабочий стол */
         .desktop {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -65,7 +60,6 @@
             color: #c8d0e0;
             font-size: 12px;
             cursor: pointer;
-            transition: 0.1s;
             padding: 6px 4px;
             border-radius: 12px;
         }
@@ -84,7 +78,6 @@
             opacity: 0.8;
         }
 
-        /* Окна */
         .window {
             display: none;
             position: absolute;
@@ -97,7 +90,6 @@
             padding: 16px;
             box-shadow: 0 16px 48px rgba(0,0,0,0.9);
             z-index: 10;
-            backdrop-filter: blur(8px);
         }
         .window.active {
             display: block;
@@ -132,8 +124,6 @@
             padding: 6px 0;
             border-bottom: 1px solid #1a1a30;
         }
-
-        /* Кнопка включения */
         .power-btn {
             position: absolute;
             bottom: -44px;
@@ -146,8 +136,6 @@
             font-size: 11px;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.15s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
         .power-btn.on {
             background: #4ade80;
@@ -156,8 +144,6 @@
         .power-btn:active {
             transform: scale(0.94);
         }
-
-        /* Статус */
         .status-bar {
             display: flex;
             justify-content: space-between;
@@ -175,81 +161,44 @@
 <div class="monitor">
     <div class="screen" id="screen">
 
-        <!-- РАБОЧИЙ СТОЛ -->
         <div class="desktop" id="desktop">
-            <div class="icon" data-window="pc">
-                <i class="fas fa-desktop"></i>
-                <div class="label">Мой ПК</div>
-            </div>
-            <div class="icon" data-window="gta">
-                <i class="fas fa-gamepad"></i>
-                <div class="label">GTA 5 RP</div>
-            </div>
-            <div class="icon" data-window="sites">
-                <i class="fas fa-code"></i>
-                <div class="label">Мои сайты</div>
-            </div>
-            <div class="icon" data-window="calc">
-                <i class="fas fa-calculator"></i>
-                <div class="label">Калькулятор</div>
-            </div>
-            <div class="icon" data-window="notes">
-                <i class="fas fa-sticky-note"></i>
-                <div class="label">Заметки</div>
-            </div>
-            <div class="icon" data-window="trash">
-                <i class="fas fa-trash"></i>
-                <div class="label">Корзина</div>
-            </div>
+            <div class="icon" data-window="pc"><i class="fas fa-desktop"></i><div class="label">Мой ПК</div></div>
+            <div class="icon" data-window="gta"><i class="fas fa-gamepad"></i><div class="label">GTA 5 RP</div></div>
+            <div class="icon" data-window="sites"><i class="fas fa-code"></i><div class="label">Мои сайты</div></div>
+            <div class="icon" data-window="calc"><i class="fas fa-calculator"></i><div class="label">Калькулятор</div></div>
+            <div class="icon" data-window="notes"><i class="fas fa-sticky-note"></i><div class="label">Заметки</div></div>
+            <div class="icon" data-window="trash"><i class="fas fa-trash"></i><div class="label">Корзина</div></div>
         </div>
 
-        <!-- ОКНО: Мой ПК -->
+        <!-- Окна -->
         <div class="window" id="win-pc">
-            <div class="window-header">
-                <span>🖥️ Мой ПК</span>
-                <span class="close" data-close="win-pc">✕</span>
-            </div>
+            <div class="window-header"><span>🖥️ Мой ПК</span><span class="close" data-close="win-pc">✕</span></div>
             <div class="window-content">
                 <div class="item">📁 Диск C: (32 ГБ)</div>
                 <div class="item">📁 Диск D: (128 ГБ)</div>
                 <div class="item">📁 Папка «Проекты»</div>
-                <div class="item">📁 Папка «Игры»</div>
             </div>
         </div>
 
-        <!-- ОКНО: GTA 5 RP -->
         <div class="window" id="win-gta">
-            <div class="window-header">
-                <span>🎮 GTA 5 RP</span>
-                <span class="close" data-close="win-gta">✕</span>
-            </div>
+            <div class="window-header"><span>🎮 GTA 5 RP</span><span class="close" data-close="win-gta">✕</span></div>
             <div class="window-content">
                 <div class="item">🚗 Banshee 900R</div>
                 <div class="item">🏙️ Москва, Арбат</div>
-                <div class="item">💰 Денег: 1 243 $</div>
-                <div class="item">🟢 Онлайн: 84 игрока</div>
+                <div class="item">💰 1 243 $</div>
             </div>
         </div>
 
-        <!-- ОКНО: Мои сайты -->
         <div class="window" id="win-sites">
-            <div class="window-header">
-                <span>🌐 Мои сайты</span>
-                <span class="close" data-close="win-sites">✕</span>
-            </div>
+            <div class="window-header"><span>🌐 Мои сайты</span><span class="close" data-close="win-sites">✕</span></div>
             <div class="window-content">
                 <div class="item">🔧 Сайт ремонта</div>
                 <div class="item">🎮 Moscow Streets RP</div>
-                <div class="item">🖥️ Мой ПК (этот)</div>
             </div>
         </div>
 
-        <!-- ОКНО: Калькулятор -->
         <div class="window" id="win-calc">
-            <div class="window-header">
-                <span>🧮 Калькулятор</span>
-                <span class="close" data-close="win-calc">✕</span>
-            </div>
+            <div class="window-header"><span>🧮 Калькулятор</span><span class="close" data-close="win-calc">✕</span></div>
             <div class="window-content">
                 <div style="font-size:32px;font-weight:800;color:#fbbf24;text-align:center;padding:12px 0;">0</div>
                 <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;">
@@ -269,68 +218,49 @@
             </div>
         </div>
 
-        <!-- ОКНО: Заметки -->
         <div class="window" id="win-notes">
-            <div class="window-header">
-                <span>📝 Заметки</span>
-                <span class="close" data-close="win-notes">✕</span>
-            </div>
+            <div class="window-header"><span>📝 Заметки</span><span class="close" data-close="win-notes">✕</span></div>
             <div class="window-content">
                 <div class="item">📌 Починить ноутбук</div>
                 <div class="item">📌 Сделать сайт</div>
-                <div class="item">📌 Собрать ПК из картона</div>
             </div>
         </div>
 
-        <!-- ОКНО: Корзина -->
         <div class="window" id="win-trash">
-            <div class="window-header">
-                <span>🗑️ Корзина</span>
-                <span class="close" data-close="win-trash">✕</span>
-            </div>
+            <div class="window-header"><span>🗑️ Корзина</span><span class="close" data-close="win-trash">✕</span></div>
             <div class="window-content">
                 <div class="item">📄 старый_сайт.html</div>
-                <div class="item">📄 настройки_сервера.bak</div>
                 <div style="margin-top:12px;color:#4a5a72;font-size:12px;">Корзина пуста</div>
             </div>
         </div>
 
-        <!-- Статус -->
         <div class="status-bar">
             <span class="online">🟢 Онлайн</span>
             <span>🖥️ ПК из картона</span>
             <span>12:00</span>
         </div>
 
-        <!-- Кнопка питания -->
         <button class="power-btn on" id="powerBtn">⏻ ВКЛ</button>
     </div>
 </div>
 
 <script>
-    // Открытие окон
     document.querySelectorAll('.icon').forEach(icon => {
         icon.addEventListener('click', function() {
             const winId = this.dataset.window;
             const win = document.getElementById('win-' + winId);
-            if (win) {
-                win.classList.add('active');
-            }
+            if (win) win.classList.add('active');
         });
     });
 
-    // Закрытие окон
     document.querySelectorAll('.close').forEach(btn => {
         btn.addEventListener('click', function() {
             const winId = this.dataset.close;
             const win = document.getElementById(winId);
-            if (win) {
-                win.classList.remove('active');
-            }
+            if (win) win.classList.remove('active');
         });
     });
 
-    // Кнопка включения (только визуальный эффект)
     const powerBtn = document.getElementById('powerBtn');
     powerBtn.addEventListener('click', function() {
         this.classList.toggle('on');
@@ -347,4 +277,4 @@
     });
 </script>
 </body>
-    </html>
+</html>
