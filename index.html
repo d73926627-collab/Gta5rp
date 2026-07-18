@@ -89,55 +89,69 @@
 
         /* Удостоверение */
         .id-card {
-            background: #0d0d18;
-            border-radius: 20px;
-            padding: 20px 16px;
-            border: 2px solid #fbbf24;
-            box-shadow: 0 0 40px rgba(251, 191, 36, 0.04);
+            background: #f5f0e8;
+            border-radius: 16px;
+            padding: 24px 18px 18px;
+            border: 3px solid #b8860b;
+            box-shadow: 0 0 50px rgba(184, 134, 11, 0.06);
             display: none;
+            color: #1a1a2e;
+            position: relative;
         }
         .id-card.active {
             display: block;
         }
-        .id-card .photo {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            background: #1a1a30;
-            margin: 0 auto 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            border: 2px solid #fbbf24;
+
+        .id-card .header {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            border-bottom: 2px solid #b8860b;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            color: #1a1a2e;
+            text-transform: uppercase;
         }
+        .id-card .header .sub {
+            font-size: 10px;
+            font-weight: 400;
+            color: #4a3a2a;
+            letter-spacing: 1px;
+        }
+
         .id-card .row {
             display: flex;
             justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid #1a1a2e;
-            font-size: 14px;
+            padding: 4px 0;
+            font-size: 13px;
+            border-bottom: 1px dashed #d0c8b8;
+        }
+        .id-card .row:last-child {
+            border-bottom: none;
         }
         .id-card .row .label {
-            color: #6b7a93;
+            color: #6a5a4a;
+            font-weight: 600;
         }
         .id-card .row .value {
-            font-weight: 600;
-            color: #e0e8f0;
+            font-weight: 700;
+            color: #1a1a2e;
+            text-align: right;
         }
-        .id-card .org {
+
+        .id-card .stamp {
             text-align: center;
             margin-top: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            color: #fbbf24;
+            font-size: 11px;
+            color: #8a7a6a;
+            border-top: 1px solid #d0c8b8;
+            padding-top: 10px;
             letter-spacing: 1px;
         }
-        .id-card .footer-text {
-            text-align: center;
-            margin-top: 6px;
-            font-size: 10px;
-            color: #4a5a72;
+        .id-card .stamp .date {
+            font-weight: 700;
+            color: #b8860b;
         }
 
         .reset-btn {
@@ -173,11 +187,11 @@
         </div>
         <div class="field">
             <label>Звание</label>
-            <input type="text" id="rank" placeholder="Майор полиции">
+            <input type="text" id="rank" placeholder="Полковник полиции">
         </div>
         <div class="field">
             <label>Подразделение</label>
-            <input type="text" id="division" placeholder="Управление «К»">
+            <input type="text" id="division" placeholder="ГИБДД">
         </div>
         <div class="field">
             <label>Организация</label>
@@ -187,15 +201,38 @@
         <button class="btn" id="generateBtn">Создать удостоверение</button>
     </div>
 
-    <!-- Готовое удостоверение -->
     <div class="card id-card" id="idCard">
-        <div class="photo">👤</div>
-        <div class="row"><span class="label">Имя</span><span class="value" id="outName">—</span></div>
-        <div class="row"><span class="label">Фамилия</span><span class="value" id="outSurname">—</span></div>
-        <div class="row"><span class="label">Звание</span><span class="value" id="outRank">—</span></div>
-        <div class="row"><span class="label">Подразделение</span><span class="value" id="outDivision">—</span></div>
-        <div class="org" id="outOrg">—</div>
-        <div class="footer-text">🪪 Удостоверение действительно</div>
+        <div class="header">
+            🛡️ УДОСТОВЕРЕНИЕ
+            <div class="sub">МВД РОССИЙСКОЙ ФЕДЕРАЦИИ</div>
+        </div>
+
+        <div class="row">
+            <span class="label">Имя</span>
+            <span class="value" id="outName">—</span>
+        </div>
+        <div class="row">
+            <span class="label">Фамилия</span>
+            <span class="value" id="outSurname">—</span>
+        </div>
+        <div class="row">
+            <span class="label">Звание</span>
+            <span class="value" id="outRank">—</span>
+        </div>
+        <div class="row">
+            <span class="label">Подразделение</span>
+            <span class="value" id="outDivision">—</span>
+        </div>
+        <div class="row">
+            <span class="label">Организация</span>
+            <span class="value" id="outOrg">—</span>
+        </div>
+
+        <div class="stamp">
+            🟡 Действительно до 01.01.2026 г.
+            <div style="font-size:9px; color:#8a7a6a; margin-top:4px;">Серия RP-ID № 77777</div>
+        </div>
+
         <button class="reset-btn" id="resetBtn">Создать новое</button>
     </div>
 
@@ -214,8 +251,8 @@
     function generate() {
         const name = nameInput.value.trim() || 'Алексей';
         const surname = surnameInput.value.trim() || 'Иванов';
-        const rank = rankInput.value.trim() || 'Майор полиции';
-        const division = divisionInput.value.trim() || 'Управление «К»';
+        const rank = rankInput.value.trim() || 'Полковник полиции';
+        const division = divisionInput.value.trim() || 'ГИБДД';
         const org = orgInput.value.trim() || 'МВД РФ';
 
         document.getElementById('outName').textContent = name;
