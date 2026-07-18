@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>🎮 Игровой профиль</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Мой ПК</title>
     <style>
         * {
             margin: 0;
@@ -12,241 +11,340 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', system-ui, sans-serif;
         }
-
         body {
-            background: #08080e;
-            color: #eee;
+            background: #1a1a2e;
             display: flex;
             justify-content: center;
-            padding: 20px 12px;
+            align-items: center;
             min-height: 100vh;
+            padding: 16px;
         }
 
-        .container {
-            max-width: 440px;
+        /* Монитор */
+        .monitor {
+            max-width: 420px;
             width: 100%;
+            background: #0a0a12;
+            border-radius: 24px;
+            padding: 16px 12px 12px;
+            border: 6px solid #2a2a44;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8), inset 0 0 60px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        .monitor::after {
+            content: '';
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 12px;
+            background: #2a2a44;
+            border-radius: 0 0 12px 12px;
         }
 
-        /* карточки */
-        .card {
-            background: #12121e;
-            border-radius: 28px;
-            padding: 22px 18px;
-            margin-bottom: 16px;
-            border: 1px solid #24243a;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+        /* Экран */
+        .screen {
+            background: #0d0d1a;
+            border-radius: 16px;
+            padding: 16px 12px;
+            min-height: 520px;
+            border: 1px solid #1a1a30;
+            position: relative;
         }
 
-        /* Аватар и ник */
-        .profile {
+        /* Рабочий стол */
+        .desktop {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px 8px;
+            margin-top: 8px;
+        }
+        .icon {
             text-align: center;
+            color: #c8d0e0;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.1s;
+            padding: 6px 4px;
+            border-radius: 12px;
         }
-        .avatar {
-            width: 90px;
-            height: 90px;
+        .icon:active {
+            transform: scale(0.92);
+            background: rgba(255,255,255,0.04);
+        }
+        .icon i {
+            font-size: 38px;
+            display: block;
+            margin-bottom: 4px;
+            color: #aabbdd;
+        }
+        .icon .label {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        /* Окна */
+        .window {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 12px;
+            right: 12px;
+            background: #12121e;
+            border-radius: 16px;
+            border: 1px solid #2a2a44;
+            padding: 16px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.9);
+            z-index: 10;
+            backdrop-filter: blur(8px);
+        }
+        .window.active {
+            display: block;
+        }
+        .window-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #e0e8f0;
+        }
+        .window-header .close {
+            background: #ff5252;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #f7971e, #ffd200);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 12px;
-            font-size: 44px;
-            font-weight: 800;
-            color: #0b0b12;
-            box-shadow: 0 0 30px rgba(255, 200, 0, 0.15);
-        }
-        .nickname {
-            font-size: 24px;
-            font-weight: 800;
-            color: #fff;
-            letter-spacing: 0.5px;
-        }
-        .status {
             font-size: 14px;
-            color: #4ade80;
-            margin-top: 2px;
+            color: #0b0b12;
+            cursor: pointer;
+            font-weight: 700;
         }
-        .status i {
-            margin-right: 4px;
+        .window-content {
+            color: #b0bedb;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .window-content .item {
+            padding: 6px 0;
+            border-bottom: 1px solid #1a1a30;
         }
 
-        .badge {
-            display: inline-block;
-            background: #1a1a30;
-            padding: 4px 14px;
+        /* Кнопка включения */
+        .power-btn {
+            position: absolute;
+            bottom: -44px;
+            right: 20px;
+            background: #2a2a44;
+            border: none;
+            color: #8f9bb3;
+            padding: 6px 16px;
             border-radius: 30px;
             font-size: 11px;
-            color: #aab;
-            border: 1px solid #2a2a44;
-            margin: 4px 2px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .power-btn.on {
+            background: #4ade80;
+            color: #0b0b12;
+        }
+        .power-btn:active {
+            transform: scale(0.94);
         }
 
-        /* Статистика */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin-top: 6px;
-        }
-        .stat-item {
-            background: #0d0d18;
-            border-radius: 16px;
-            padding: 10px 6px;
-            text-align: center;
-            border: 1px solid #1e1e32;
-        }
-        .stat-item .num {
-            font-size: 22px;
-            font-weight: 800;
-            color: #fbbf24;
-        }
-        .stat-item .label {
-            font-size: 10px;
-            color: #6b7a93;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Машины */
-        .car-list {
+        /* Статус */
+        .status-bar {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 8px;
-        }
-        .car-tag {
-            background: #0d0d18;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 13px;
-            border: 1px solid #2a2a44;
-            color: #c8d0e0;
-        }
-        .car-tag i {
-            margin-right: 4px;
-            color: #fbbf24;
-        }
-
-        /* Достижения */
-        .achieve-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-            margin-top: 8px;
-        }
-        .achieve-item {
-            background: #0d0d18;
-            border-radius: 14px;
-            padding: 10px 4px;
-            text-align: center;
-            border: 1px solid #1e1e32;
-        }
-        .achieve-item i {
-            font-size: 24px;
-            color: #fbbf24;
-        }
-        .achieve-item .name {
-            font-size: 10px;
-            color: #8f9bb3;
-            margin-top: 2px;
-        }
-
-        .footer-legal {
-            margin-top: 20px;
-            padding: 12px 10px;
-            text-align: center;
+            justify-content: space-between;
+            margin-top: 12px;
             font-size: 10px;
             color: #4a5a72;
-            border-top: 1px solid #1a1a2e;
-            line-height: 1.6;
+            padding: 0 4px;
+        }
+        .status-bar .online {
+            color: #4ade80;
         }
     </style>
 </head>
 <body>
-<div class="container">
+<div class="monitor">
+    <div class="screen" id="screen">
 
-    <!-- ===== ПРОФИЛЬ ===== -->
-    <div class="card profile">
-        <div class="avatar">🔥</div>
-        <div class="nickname">Moscow_Player</div>
-        <div class="status"><i class="fas fa-circle" style="color:#4ade80; font-size:10px;"></i> В игре</div>
-        <div style="margin-top: 8px;">
-            <span class="badge"><i class="fas fa-star"></i> Легенда</span>
-            <span class="badge"><i class="fas fa-shield"></i> VIP</span>
-        </div>
-    </div>
-
-    <!-- ===== СТАТИСТИКА ===== -->
-    <div class="card">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-            <span style="font-weight:700; font-size:16px;">📊 Статистика</span>
-            <span style="color:#6b7a93; font-size:12px;">за всё время</span>
-        </div>
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="num">246</div>
-                <div class="label">Игр</div>
+        <!-- РАБОЧИЙ СТОЛ -->
+        <div class="desktop" id="desktop">
+            <div class="icon" data-window="pc">
+                <i class="fas fa-desktop"></i>
+                <div class="label">Мой ПК</div>
             </div>
-            <div class="stat-item">
-                <div class="num">84</div>
-                <div class="label">Победы</div>
+            <div class="icon" data-window="gta">
+                <i class="fas fa-gamepad"></i>
+                <div class="label">GTA 5 RP</div>
             </div>
-            <div class="stat-item">
-                <div class="num">1.2k</div>
-                <div class="label">Убийств</div>
+            <div class="icon" data-window="sites">
+                <i class="fas fa-code"></i>
+                <div class="label">Мои сайты</div>
+            </div>
+            <div class="icon" data-window="calc">
+                <i class="fas fa-calculator"></i>
+                <div class="label">Калькулятор</div>
+            </div>
+            <div class="icon" data-window="notes">
+                <i class="fas fa-sticky-note"></i>
+                <div class="label">Заметки</div>
+            </div>
+            <div class="icon" data-window="trash">
+                <i class="fas fa-trash"></i>
+                <div class="label">Корзина</div>
             </div>
         </div>
-    </div>
 
-    <!-- ===== МАШИНЫ ===== -->
-    <div class="card">
-        <div style="font-weight:700; font-size:16px; margin-bottom:4px;">🚗 Любимые машины</div>
-        <div class="car-list">
-            <span class="car-tag"><i class="fas fa-car"></i> Banshee</span>
-            <span class="car-tag"><i class="fas fa-car"></i> Comet</span>
-            <span class="car-tag"><i class="fas fa-car"></i> Sultan</span>
-            <span class="car-tag"><i class="fas fa-car"></i> Elegy</span>
-            <span class="car-tag"><i class="fas fa-truck"></i> Sandking</span>
-        </div>
-    </div>
-
-    <!-- ===== ДОСТИЖЕНИЯ ===== -->
-    <div class="card">
-        <div style="font-weight:700; font-size:16px; margin-bottom:4px;">🏆 Достижения</div>
-        <div class="achieve-grid">
-            <div class="achieve-item">
-                <i class="fas fa-skull"></i>
-                <div class="name">100 убийств</div>
+        <!-- ОКНО: Мой ПК -->
+        <div class="window" id="win-pc">
+            <div class="window-header">
+                <span>🖥️ Мой ПК</span>
+                <span class="close" data-close="win-pc">✕</span>
             </div>
-            <div class="achieve-item">
-                <i class="fas fa-trophy"></i>
-                <div class="name">10 побед</div>
-            </div>
-            <div class="achieve-item">
-                <i class="fas fa-rocket"></i>
-                <div class="name">Легенда</div>
-            </div>
-            <div class="achieve-item">
-                <i class="fas fa-gem"></i>
-                <div class="name">Миллионер</div>
-            </div>
-            <div class="achieve-item">
-                <i class="fas fa-crown"></i>
-                <div class="name">Король</div>
-            </div>
-            <div class="achieve-item">
-                <i class="fas fa-shield-halved"></i>
-                <div class="name">Защитник</div>
+            <div class="window-content">
+                <div class="item">📁 Диск C: (32 ГБ)</div>
+                <div class="item">📁 Диск D: (128 ГБ)</div>
+                <div class="item">📁 Папка «Проекты»</div>
+                <div class="item">📁 Папка «Игры»</div>
             </div>
         </div>
-    </div>
 
-    <!-- ===== ФУТЕР ===== -->
-    <div class="footer-legal">
-        🎮 Игровой профиль создан для Moscow Streets RP<br>
-        Все данные вымышлены и обновляются в реальном времени
-    </div>
+        <!-- ОКНО: GTA 5 RP -->
+        <div class="window" id="win-gta">
+            <div class="window-header">
+                <span>🎮 GTA 5 RP</span>
+                <span class="close" data-close="win-gta">✕</span>
+            </div>
+            <div class="window-content">
+                <div class="item">🚗 Banshee 900R</div>
+                <div class="item">🏙️ Москва, Арбат</div>
+                <div class="item">💰 Денег: 1 243 $</div>
+                <div class="item">🟢 Онлайн: 84 игрока</div>
+            </div>
+        </div>
 
+        <!-- ОКНО: Мои сайты -->
+        <div class="window" id="win-sites">
+            <div class="window-header">
+                <span>🌐 Мои сайты</span>
+                <span class="close" data-close="win-sites">✕</span>
+            </div>
+            <div class="window-content">
+                <div class="item">🔧 Сайт ремонта</div>
+                <div class="item">🎮 Moscow Streets RP</div>
+                <div class="item">🖥️ Мой ПК (этот)</div>
+            </div>
+        </div>
+
+        <!-- ОКНО: Калькулятор -->
+        <div class="window" id="win-calc">
+            <div class="window-header">
+                <span>🧮 Калькулятор</span>
+                <span class="close" data-close="win-calc">✕</span>
+            </div>
+            <div class="window-content">
+                <div style="font-size:32px;font-weight:800;color:#fbbf24;text-align:center;padding:12px 0;">0</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;">
+                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">7</button>
+                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">8</button>
+                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">9</button>
+                    <button style="padding:12px;border-radius:12px;border:none;background:#fbbf24;color:#0b0b12;font-size:18px;">+</button>
+                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">4</button>
+                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">5</button>
+                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">6</button>
+                    <button style="padding:12px;border-radius:12px;border:none;background:#fbbf24;color:#0b0b12;font-size:18px;">-</button>
+                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">1</button>
+                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">2</button>
+                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">3</button>
+                    <button style="padding:12px;border-radius:12px;border:none;background:#fbbf24;color:#0b0b12;font-size:18px;">=</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ОКНО: Заметки -->
+        <div class="window" id="win-notes">
+            <div class="window-header">
+                <span>📝 Заметки</span>
+                <span class="close" data-close="win-notes">✕</span>
+            </div>
+            <div class="window-content">
+                <div class="item">📌 Починить ноутбук</div>
+                <div class="item">📌 Сделать сайт</div>
+                <div class="item">📌 Собрать ПК из картона</div>
+            </div>
+        </div>
+
+        <!-- ОКНО: Корзина -->
+        <div class="window" id="win-trash">
+            <div class="window-header">
+                <span>🗑️ Корзина</span>
+                <span class="close" data-close="win-trash">✕</span>
+            </div>
+            <div class="window-content">
+                <div class="item">📄 старый_сайт.html</div>
+                <div class="item">📄 настройки_сервера.bak</div>
+                <div style="margin-top:12px;color:#4a5a72;font-size:12px;">Корзина пуста</div>
+            </div>
+        </div>
+
+        <!-- Статус -->
+        <div class="status-bar">
+            <span class="online">🟢 Онлайн</span>
+            <span>🖥️ ПК из картона</span>
+            <span>12:00</span>
+        </div>
+
+        <!-- Кнопка питания -->
+        <button class="power-btn on" id="powerBtn">⏻ ВКЛ</button>
+    </div>
 </div>
+
+<script>
+    // Открытие окон
+    document.querySelectorAll('.icon').forEach(icon => {
+        icon.addEventListener('click', function() {
+            const winId = this.dataset.window;
+            const win = document.getElementById('win-' + winId);
+            if (win) {
+                win.classList.add('active');
+            }
+        });
+    });
+
+    // Закрытие окон
+    document.querySelectorAll('.close').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const winId = this.dataset.close;
+            const win = document.getElementById(winId);
+            if (win) {
+                win.classList.remove('active');
+            }
+        });
+    });
+
+    // Кнопка включения (только визуальный эффект)
+    const powerBtn = document.getElementById('powerBtn');
+    powerBtn.addEventListener('click', function() {
+        this.classList.toggle('on');
+        this.textContent = this.classList.contains('on') ? '⏻ ВКЛ' : '⏻ ВЫКЛ';
+        const screen = document.getElementById('screen');
+        if (this.classList.contains('on')) {
+            screen.style.opacity = '1';
+            document.querySelector('.desktop').style.display = 'grid';
+        } else {
+            screen.style.opacity = '0.3';
+            document.querySelector('.desktop').style.display = 'none';
+            document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+        }
+    });
+</script>
 </body>
     </html>
