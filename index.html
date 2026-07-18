@@ -2,279 +2,66 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Мой ПК из картона</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Что-то</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
         }
         body {
-            background: #1a1a2e;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: #0f0f1a;
             min-height: 100vh;
-            padding: 16px;
-        }
-        .monitor {
-            max-width: 420px;
-            width: 100%;
-            background: #0a0a12;
-            border-radius: 24px;
-            padding: 16px 12px 12px;
-            border: 6px solid #2a2a44;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            position: relative;
-        }
-        .monitor::after {
-            content: '';
-            position: absolute;
-            bottom: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 12px;
-            background: #2a2a44;
-            border-radius: 0 0 12px 12px;
-        }
-        .screen {
-            background: #0d0d1a;
-            border-radius: 16px;
-            padding: 16px 12px;
-            min-height: 500px;
-            border: 1px solid #1a1a30;
-            position: relative;
-        }
-        .desktop {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 16px 8px;
-            margin-top: 8px;
-        }
-        .icon {
-            text-align: center;
-            color: #c8d0e0;
-            font-size: 12px;
-            cursor: pointer;
-            padding: 6px 4px;
-            border-radius: 12px;
-        }
-        .icon:active {
-            transform: scale(0.92);
-            background: rgba(255,255,255,0.04);
-        }
-        .icon i {
-            font-size: 38px;
-            display: block;
-            margin-bottom: 4px;
-            color: #aabbdd;
-        }
-        .icon .label {
-            font-size: 11px;
-            opacity: 0.8;
-        }
-
-        .window {
-            display: none;
-            position: absolute;
-            top: 20px;
-            left: 12px;
-            right: 12px;
-            background: #12121e;
-            border-radius: 16px;
-            border: 1px solid #2a2a44;
-            padding: 16px;
-            box-shadow: 0 16px 48px rgba(0,0,0,0.9);
-            z-index: 10;
-        }
-        .window.active {
-            display: block;
-        }
-        .window-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            font-weight: 600;
-            color: #e0e8f0;
-        }
-        .window-header .close {
-            background: #ff5252;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            color: #0b0b12;
-            cursor: pointer;
-            font-weight: 700;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
         }
-        .window-content {
-            color: #b0bedb;
-            font-size: 14px;
+        .center {
+            max-width: 400px;
+            text-align: center;
+            color: #e0e0e0;
+        }
+        .symbol {
+            font-size: 72px;
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+        .text {
+            font-size: 22px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #bbbbdd;
             line-height: 1.6;
         }
-        .window-content .item {
-            padding: 6px 0;
-            border-bottom: 1px solid #1a1a30;
+        .sub {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #555577;
+            letter-spacing: 1px;
         }
-        .power-btn {
-            position: absolute;
-            bottom: -44px;
-            right: 20px;
-            background: #2a2a44;
-            border: none;
-            color: #8f9bb3;
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .power-btn.on {
-            background: #4ade80;
-            color: #0b0b12;
-        }
-        .power-btn:active {
-            transform: scale(0.94);
-        }
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 12px;
-            font-size: 10px;
-            color: #4a5a72;
-            padding: 0 4px;
-        }
-        .status-bar .online {
-            color: #4ade80;
+        .line {
+            width: 40px;
+            height: 2px;
+            background: #3a3a5a;
+            margin: 16px auto 0;
         }
     </style>
 </head>
 <body>
-<div class="monitor">
-    <div class="screen" id="screen">
-
-        <div class="desktop" id="desktop">
-            <div class="icon" data-window="pc"><i class="fas fa-desktop"></i><div class="label">Мой ПК</div></div>
-            <div class="icon" data-window="gta"><i class="fas fa-gamepad"></i><div class="label">GTA 5 RP</div></div>
-            <div class="icon" data-window="sites"><i class="fas fa-code"></i><div class="label">Мои сайты</div></div>
-            <div class="icon" data-window="calc"><i class="fas fa-calculator"></i><div class="label">Калькулятор</div></div>
-            <div class="icon" data-window="notes"><i class="fas fa-sticky-note"></i><div class="label">Заметки</div></div>
-            <div class="icon" data-window="trash"><i class="fas fa-trash"></i><div class="label">Корзина</div></div>
+    <div class="center">
+        <div class="symbol">⏻</div>
+        <div class="text">
+            Это просто страница.<br>
+            Ничего не происходит.<br>
+            Ничего не надо делать.
         </div>
-
-        <!-- Окна -->
-        <div class="window" id="win-pc">
-            <div class="window-header"><span>🖥️ Мой ПК</span><span class="close" data-close="win-pc">✕</span></div>
-            <div class="window-content">
-                <div class="item">📁 Диск C: (32 ГБ)</div>
-                <div class="item">📁 Диск D: (128 ГБ)</div>
-                <div class="item">📁 Папка «Проекты»</div>
-            </div>
+        <div class="line"></div>
+        <div class="sub">
+            ты здесь — и этого достаточно
         </div>
-
-        <div class="window" id="win-gta">
-            <div class="window-header"><span>🎮 GTA 5 RP</span><span class="close" data-close="win-gta">✕</span></div>
-            <div class="window-content">
-                <div class="item">🚗 Banshee 900R</div>
-                <div class="item">🏙️ Москва, Арбат</div>
-                <div class="item">💰 1 243 $</div>
-            </div>
-        </div>
-
-        <div class="window" id="win-sites">
-            <div class="window-header"><span>🌐 Мои сайты</span><span class="close" data-close="win-sites">✕</span></div>
-            <div class="window-content">
-                <div class="item">🔧 Сайт ремонта</div>
-                <div class="item">🎮 Moscow Streets RP</div>
-            </div>
-        </div>
-
-        <div class="window" id="win-calc">
-            <div class="window-header"><span>🧮 Калькулятор</span><span class="close" data-close="win-calc">✕</span></div>
-            <div class="window-content">
-                <div style="font-size:32px;font-weight:800;color:#fbbf24;text-align:center;padding:12px 0;">0</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;">
-                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">7</button>
-                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">8</button>
-                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">9</button>
-                    <button style="padding:12px;border-radius:12px;border:none;background:#fbbf24;color:#0b0b12;font-size:18px;">+</button>
-                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">4</button>
-                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">5</button>
-                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">6</button>
-                    <button style="padding:12px;border-radius:12px;border:none;background:#fbbf24;color:#0b0b12;font-size:18px;">-</button>
-                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">1</button>
-                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">2</button>
-                    <button style="padding:12px;border-radius:12px;border:none;background:#1a1a30;color:#fff;font-size:18px;">3</button>
-                    <button style="padding:12px;border-radius:12px;border:none;background:#fbbf24;color:#0b0b12;font-size:18px;">=</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="window" id="win-notes">
-            <div class="window-header"><span>📝 Заметки</span><span class="close" data-close="win-notes">✕</span></div>
-            <div class="window-content">
-                <div class="item">📌 Починить ноутбук</div>
-                <div class="item">📌 Сделать сайт</div>
-            </div>
-        </div>
-
-        <div class="window" id="win-trash">
-            <div class="window-header"><span>🗑️ Корзина</span><span class="close" data-close="win-trash">✕</span></div>
-            <div class="window-content">
-                <div class="item">📄 старый_сайт.html</div>
-                <div style="margin-top:12px;color:#4a5a72;font-size:12px;">Корзина пуста</div>
-            </div>
-        </div>
-
-        <div class="status-bar">
-            <span class="online">🟢 Онлайн</span>
-            <span>🖥️ ПК из картона</span>
-            <span>12:00</span>
-        </div>
-
-        <button class="power-btn on" id="powerBtn">⏻ ВКЛ</button>
     </div>
-</div>
-
-<script>
-    document.querySelectorAll('.icon').forEach(icon => {
-        icon.addEventListener('click', function() {
-            const winId = this.dataset.window;
-            const win = document.getElementById('win-' + winId);
-            if (win) win.classList.add('active');
-        });
-    });
-
-    document.querySelectorAll('.close').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const winId = this.dataset.close;
-            const win = document.getElementById(winId);
-            if (win) win.classList.remove('active');
-        });
-    });
-
-    const powerBtn = document.getElementById('powerBtn');
-    powerBtn.addEventListener('click', function() {
-        this.classList.toggle('on');
-        this.textContent = this.classList.contains('on') ? '⏻ ВКЛ' : '⏻ ВЫКЛ';
-        const screen = document.getElementById('screen');
-        if (this.classList.contains('on')) {
-            screen.style.opacity = '1';
-            document.querySelector('.desktop').style.display = 'grid';
-        } else {
-            screen.style.opacity = '0.3';
-            document.querySelector('.desktop').style.display = 'none';
-            document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
-        }
-    });
-</script>
 </body>
 </html>
