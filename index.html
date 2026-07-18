@@ -2,39 +2,230 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Ключи от машины</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
         body {
-            background: #0b0b14;
+            background: #0d0d1a;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            font-family: monospace;
-            color: #4a5a72;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            padding: 20px;
         }
-        div {
+        .container {
+            max-width: 380px;
+            width: 100%;
+            background: linear-gradient(145deg, #14141f, #1a1a2e);
+            border-radius: 40px;
+            padding: 30px 20px 28px;
+            border: 1px solid #2a2a44;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.8);
             text-align: center;
-            font-size: 14px;
-            letter-spacing: 1px;
-            line-height: 2;
         }
-        span {
-            color: #2a2a44;
-            display: block;
-            margin-top: 8px;
+
+        /* Машина (верх) */
+        .car-area {
+            margin-bottom: 24px;
+        }
+        .car-icon {
+            font-size: 80px;
+            line-height: 1;
+            filter: drop-shadow(0 8px 24px rgba(255, 200, 0, 0.08));
+            transition: 0.3s;
+        }
+        .car-name {
+            font-size: 13px;
+            color: #6b7a93;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        /* Статус */
+        .status-box {
+            background: #0d0d18;
+            border-radius: 20px;
+            padding: 12px;
+            margin-bottom: 24px;
+            border: 1px solid #1e1e32;
+            color: #8f9bb3;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .status-box .label {
+            text-transform: uppercase;
             font-size: 11px;
+            letter-spacing: 1px;
+        }
+        .status-box .value {
+            font-weight: 600;
+            color: #e0e8f0;
+        }
+
+        /* Кнопки */
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 14px;
+        }
+        .btn {
+            background: #0d0d18;
+            border: 1px solid #2a2a44;
+            border-radius: 24px;
+            padding: 18px 0;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .btn:active {
+            transform: scale(0.92);
+        }
+        .btn .icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .btn .label {
+            font-size: 11px;
+            color: #6b7a93;
+            letter-spacing: 0.5px;
+        }
+        .btn.unlock {
+            border-color: #4ade8040;
+        }
+        .btn.unlock:active {
+            background: #4ade8020;
+        }
+        .btn.lock {
+            border-color: #f8717140;
+        }
+        .btn.lock:active {
+            background: #f8717120;
+        }
+        .btn.trunk {
+            border-color: #60a5fa40;
+        }
+        .btn.trunk:active {
+            background: #60a5fa20;
+        }
+
+        /* Вспышка */
+        .flash {
+            animation: flash 0.3s ease 2;
+        }
+        @keyframes flash {
+            0% { filter: drop-shadow(0 0 0px rgba(255, 200, 0, 0)); }
+            50% { filter: drop-shadow(0 0 40px rgba(255, 200, 0, 0.6)); }
+            100% { filter: drop-shadow(0 0 0px rgba(255, 200, 0, 0)); }
+        }
+
+        /* Багажник */
+        .trunk-open .car-icon {
+            transform: translateY(6px);
         }
     </style>
 </head>
 <body>
-    <div>
-        —<br>
-        ·<br>
-        —<br>
-        <span>здесь ничего нет</span>
+<div class="container" id="app">
+    <!-- Машина -->
+    <div class="car-area" id="carArea">
+        <div class="car-icon" id="carIcon">🚗</div>
+        <div class="car-name">BANSHEE 900R</div>
     </div>
+
+    <!-- Статус -->
+    <div class="status-box">
+        <span class="label">Двери</span>
+        <span class="value" id="doorStatus">🔒 Закрыты</span>
+    </div>
+
+    <!-- Кнопки -->
+    <div class="btn-grid">
+        <button class="btn unlock" id="btnUnlock">
+            <span class="icon">🔓</span>
+            <span class="label">Открыть</span>
+        </button>
+        <button class="btn lock" id="btnLock">
+            <span class="icon">🔒</span>
+            <span class="label">Закрыть</span>
+        </button>
+        <button class="btn trunk" id="btnTrunk">
+            <span class="icon">🧳</span>
+            <span class="label">Багажник</span>
+        </button>
+    </div>
+
+    <!-- Сообщение -->
+    <div style="margin-top:18px; font-size:11px; color:#4a5a72;" id="message">Нажми на кнопку</div>
+</div>
+
+<script>
+    const carIcon = document.getElementById('carIcon');
+    const doorStatus = document.getElementById('doorStatus');
+    const message = document.getElementById('message');
+    const carArea = document.getElementById('carArea');
+
+    let doorsOpen = false;
+    let trunkOpen = false;
+
+    function flashLights() {
+        carIcon.classList.remove('flash');
+        setTimeout(() => {
+            carIcon.classList.add('flash');
+        }, 10);
+        setTimeout(() => {
+            carIcon.classList.remove('flash');
+        }, 600);
+    }
+
+    function updateUI() {
+        if (trunkOpen) {
+            carArea.classList.add('trunk-open');
+        } else {
+            carArea.classList.remove('trunk-open');
+        }
+    }
+
+    document.getElementById('btnUnlock').addEventListener('click', function() {
+        if (!doorsOpen) {
+            doorsOpen = true;
+            doorStatus.textContent = '🔓 Открыты';
+            flashLights();
+            message.textContent = '🔓 Двери открыты, фары мигнули';
+        } else {
+            message.textContent = 'Двери уже открыты';
+        }
+    });
+
+    document.getElementById('btnLock').addEventListener('click', function() {
+        if (doorsOpen) {
+            doorsOpen = false;
+            doorStatus.textContent = '🔒 Закрыты';
+            flashLights();
+            message.textContent = '🔒 Двери закрыты, фары мигнули';
+        } else {
+            message.textContent = 'Двери уже закрыты';
+        }
+    });
+
+    document.getElementById('btnTrunk').addEventListener('click', function() {
+        trunkOpen = !trunkOpen;
+        updateUI();
+        if (trunkOpen) {
+            message.textContent = '🧳 Багажник открыт';
+        } else {
+            message.textContent = '🧳 Багажник закрыт';
+        }
+    });
+</script>
 </body>
 </html>
