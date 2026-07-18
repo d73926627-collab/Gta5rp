@@ -3,113 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🚗 GTA 5 RP Симулятор</title>
+    <title>Moscow Streets RP</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a0f; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #fff; padding: 10px; }
-        .container { max-width: 420px; width: 100%; background: linear-gradient(145deg, #11111f, #1a1a2e); border-radius: 28px; padding: 20px 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); border: 1px solid #2a2a4a; min-height: 700px; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-        .header h1 { font-size: 18px; font-weight: 700; background: linear-gradient(90deg, #ffd700, #ff8c00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .status-badge { background: #00c85320; padding: 6px 14px; border-radius: 30px; font-size: 12px; color: #00e676; border: 1px solid #00e67640; }
-        .car-display { background: #0d0d1a; border-radius: 20px; padding: 20px 10px; margin-bottom: 16px; text-align: center; border: 1px solid #2a2a4a; }
-        .car-icon { font-size: 72px; filter: drop-shadow(0 8px 20px #ff8c0040); }
-        .car-icon.off { filter: grayscale(1) brightness(0.4); }
-        .car-name { font-size: 14px; color: #8899bb; }
-        .car-status { font-size: 12px; color: #ff5252; }
-        .car-status.on { color: #69f0ae; }
-        .money-display { background: #0d0d1a; border-radius: 16px; padding: 14px; margin-bottom: 16px; text-align: center; border: 1px solid #ffd70030; border-left: 4px solid #ffd700; }
-        .money-label { font-size: 12px; color: #8899bb; }
-        .money-amount { font-size: 32px; font-weight: 800; color: #ffd700; }
-        .car-panel { background: #0d0d1a; border-radius: 20px; padding: 16px; border: 1px solid #2a2a4a; margin-bottom: 16px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-        .panel-item { background: #111122; border-radius: 12px; padding: 8px 4px; text-align: center; border: 1px solid #1e1e3a; }
-        .panel-item .label { font-size: 9px; color: #667799; }
-        .panel-item .value { font-size: 18px; font-weight: 700; }
-        .panel-item .value.speed { color: #00e676; }
-        .panel-item .value.mileage { color: #64b5f6; }
-        .panel-item .value.door { color: #ffb74d; }
-        .controls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-        .ctrl-btn { background: #1a1a2e; border: 1px solid #2a2a4a; border-radius: 14px; padding: 12px 0; color: #aabbcc; font-size: 13px; font-weight: 600; transition: all 0.15s; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; }
-        .ctrl-btn:active { transform: scale(0.94); background: #2a2a4a; }
-        .ctrl-btn .icon { font-size: 20px; }
-        .ctrl-btn.active { border-color: #ff8c00; color: #ff8c00; background: #ff8c0015; }
-        .ctrl-btn.primary { border-color: #00e67640; color: #00e676; }
-        .ctrl-btn.primary:active { background: #00e67620; }
-        .ctrl-btn.danger { border-color: #ff525240; color: #ff5252; }
-        .ctrl-btn.danger:active { background: #ff525220; }
-        .action-hint { text-align: center; font-size: 12px; color: #667799; padding: 8px; background: #0d0d1a; border-radius: 12px; border: 1px dashed #2a2a4a; margin-top: 4px; }
-        .action-hint span { color: #ffd700; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background: #0b0b12;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            padding: 20px 12px;
+        }
+        .container {
+            max-width: 420px;
+            width: 100%;
+        }
+
+        /* ===== ШАПКА ===== */
+        .header {
+            background: linear-gradient(145deg, #14141f, #1a1a2e);
+            border-radius: 28px;
+            padding: 24px 18px;
+            border: 1px solid #2a2a44;
+            text-align: center;
+            margin-bottom: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+        .header p {
+            color: #8f9bb3;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        /* ===== ОНЛАЙН ===== */
+        .online-box {
+            background: #0d0d1a;
+            padding: 14px;
+            border-radius: 18px;
+            border: 1px solid #282840;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .online-box .num {
+            font-size: 38px;
+            font-weight: 800;
+            color: #4ade80;
+        }
+        .online-box .label {
+            color: #8f9bb3;
+            font-size: 13px;
+        }
+
+        /* ===== БЛОК О РОЛИ ===== */
+        .card {
+            background: #12121e;
+            border-radius: 22px;
+            padding: 18px 16px;
+            border: 1px solid #282840;
+            margin-bottom: 16px;
+        }
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #fbbf24;
+        }
+        .card p {
+            color: #b0bedb;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ===== КАК ИГРАТЬ ===== */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 6px;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #0d0d1a;
+            padding: 12px 14px;
+            border-radius: 16px;
+            border: 1px solid #1e1e32;
+        }
+        .step .num {
+            background: #fbbf24;
+            color: #0b0b12;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .step .text {
+            font-size: 14px;
+            color: #c8d0e0;
+        }
+
+        /* ===== СЕРВЕРА ===== */
+        .server-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .server-item {
+            background: #0d0d1a;
+            border: 1px solid #282840;
+            border-radius: 14px;
+            padding: 14px 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 15px;
+            color: #e0e0e0;
+            transition: 0.15s;
+        }
+        .server-item span {
+            display: block;
+            font-weight: 400;
+            font-size: 11px;
+            color: #6b7a93;
+            margin-top: 2px;
+        }
+
+        /* ===== ФУТЕР (ЮРИДИЧЕСКИЙ ТЕКСТ) ===== */
+        .footer-legal {
+            margin-top: 24px;
+            padding: 16px 12px;
+            text-align: center;
+            font-size: 10px;
+            color: #4a5568;
+            line-height: 1.6;
+            border-top: 1px solid #1a1a2e;
+        }
+        .footer-legal a {
+            color: #6b7a93;
+            text-decoration: none;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 380px) {
+            .header h1 { font-size: 22px; }
+            .online-box .num { font-size: 30px; }
+            .server-grid { grid-template-columns: 1fr 1fr; }
+        }
     </style>
 </head>
 <body>
-<div class="container" id="app">
-    <div class="header"><h1>🚗 GTA 5 RP</h1><div class="status-badge" id="statusBadge">🔴 Вне машины</div></div>
-    <div class="money-display"><div class="money-label">💰 ДЕНЬГИ</div><div class="money-amount" id="moneyAmount">5 000 $</div></div>
-    <div class="car-display"><div class="car-icon" id="carIcon">🏎️</div><div class="car-name" id="carName">Banshee 900R</div><div class="car-status" id="carStatus">🚫 Двигатель выключен</div></div>
-    <div class="car-panel">
-        <div class="panel-item"><div class="label">🚀 Скорость</div><div class="value speed" id="speedDisplay">0 км/ч</div></div>
-        <div class="panel-item"><div class="label">📊 Пробег</div><div class="value mileage" id="mileageDisplay">0 км</div></div>
-        <div class="panel-item"><div class="label">🚪 Двери</div><div class="value door" id="doorDisplay">🔒 Закрыты</div></div>
+<div class="container">
+
+    <!-- Шапка -->
+    <div class="header">
+        <h1>MOSCOW STREETS RP</h1>
+        <p>Лучший Role Play сервер в GTA 5</p>
     </div>
-    <div class="controls">
-        <button class="ctrl-btn" id="btnEngine"><span class="icon">🔌</span> Двигатель</button>
-        <button class="ctrl-btn" id="btnDoors"><span class="icon">🚪</span> Двери</button>
-        <button class="ctrl-btn primary" id="btnEnter"><span class="icon">🚗</span> Сесть</button>
+
+    <!-- Онлайн -->
+    <div class="online-box">
+        <div class="num">1 243</div>
+        <div class="label">Сейчас играют</div>
     </div>
-    <div class="controls">
-        <button class="ctrl-btn danger" id="btnExit"><span class="icon">🚶</span> Выйти</button>
-        <button class="ctrl-btn" id="btnGas"><span class="icon">⛽</span> Газ (⬆)</button>
-        <button class="ctrl-btn" id="btnBrake"><span class="icon">🛑</span> Тормоз</button>
+
+    <!-- Что такое RP -->
+    <div class="card">
+        <h3>Что такое Roleplay?</h3>
+        <p>Roleplay — это игровой режим, в котором ты примеряешь на себя роль. Играй за полицейского, бандита, бизнесмена или простого водителя. Живи жизнью персонажа в Москве. Почувствуй атмосферу настоящего RP!</p>
     </div>
-    <div class="action-hint" id="actionHint">💡 Нажми <span>«Сесть»</span>, чтобы сесть в машину</div>
+
+    <!-- Как играть -->
+    <div class="card">
+        <h3>Как начать играть?</h3>
+        <div class="steps">
+            <div class="step">
+                <div class="num">1</div>
+                <div class="text">Купить и установить GTA V (Legacy)</div>
+            </div>
+            <div class="step">
+                <div class="num">2</div>
+                <div class="text">Установить RAGE MP лаунчер</div>
+            </div>
+            <div class="step">
+                <div class="num">3</div>
+                <div class="text">Выбрать сервер и начать играть</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Наши сервера -->
+    <div class="card">
+        <h3>Наши сервера</h3>
+        <div class="server-grid">
+            <div class="server-item">Арбат <span>РП</span></div>
+            <div class="server-item">Патрики <span>РП</span></div>
+            <div class="server-item">Рублёвка <span>РП</span></div>
+            <div class="server-item">Тверской <span>РП</span></div>
+            <div class="server-item" style="grid-column: 1 / -1;">Центр <span>МЕГА-РП</span></div>
+        </div>
+    </div>
+
+    <!-- Юридический футер -->
+    <div class="footer-legal">
+        Moscow Streets RP — это некоммерческий игровой проект.<br>
+        Мы не связаны с компанией Rockstar Games.<br>
+        Все игровые события и персонажи являются вымышленными.<br>
+        Сайт создан фанатами для фанатов.
+    </div>
+
 </div>
-<script>
-    const state = { inCar: false, engineOn: false, speed: 0, mileage: 0, doorsLocked: true, money: 5000, maxSpeed: 180, gasPressed: false, brakePressed: false, interval: null };
-    const $ = id => document.getElementById(id);
-    function updateUI() {
-        $('moneyAmount').textContent = state.money.toLocaleString() + ' $';
-        if (state.inCar) {
-            $('statusBadge').textContent = '🟢 В машине';
-            $('statusBadge').style.borderColor = '#00e67640';
-            $('carIcon').className = 'car-icon';
-            $('carName').textContent = 'Banshee 900R';
-            $('carStatus').textContent = state.engineOn ? '🔊 Двигатель работает' : '🔇 Двигатель выключен';
-            $('carStatus').className = 'car-status' + (state.engineOn ? ' on' : '');
-            $('actionHint').innerHTML = '🚗 Ты за рулём. Используй <span>Газ</span> и <span>Тормоз</span>';
-        } else {
-            $('statusBadge').textContent = '🔴 Вне машины';
-            $('statusBadge').style.borderColor = '#ff525240';
-            $('carIcon').className = 'car-icon off';
-            $('carName').textContent = 'Нет машины';
-            $('carStatus').textContent = '🚫 Ты пешком';
-            $('carStatus').className = 'car-status';
-            $('actionHint').innerHTML = '💡 Нажми <span>«Сесть»</span>, чтобы сесть в машину';
-            state.speed = 0;
-            state.engineOn = false;
-        }
-        $('speedDisplay').innerHTML = Math.round(state.speed) + ' <span style="font-size:12px;">км/ч</span>';
-        $('mileageDisplay').innerHTML = Math.round(state.mileage) + ' <span style="font-size:12px;">км</span>';
-        $('doorDisplay').textContent = state.doorsLocked ? '🔒 Закрыты' : '🔓 Открыты';
-        $('doorDisplay').style.color = state.doorsLocked ? '#ffb74d' : '#ff8a80';
-        $('btnEngine').classList.toggle('active', state.engineOn);
-        $('btnEngine').textContent = state.engineOn ? '🔌 Двигатель ON' : '🔌 Двигатель OFF';
-        $('btnDoors').textContent = state.doorsLocked ? '🚪 Закрыть' : '🚪 Открыть';
-        $('btnEnter').disabled = state.inCar;
-        $('btnEnter').style.opacity = state.inCar ? '0.4' : '1';
-        $('btnExit').disabled = !state.inCar;
-        $('btnExit').style.opacity = state.inCar ? '1' : '0.4';
-    }
-    function startEngine() { if (!state.inCar) { $('actionHint').innerHTML = '⚠️ Сначала сядь в машину!'; return; } state.engineOn = !state.engineOn; if (!state.engineOn) { state.speed = 0; clearInterval(state.interval); state.interval = null; } else { if (state.interval) clearInterval(state.interval); state.interval = setInterval(() => { if (!state.engineOn || !state.inCar) { state.speed = 0; updateUI(); return; } if (state.gasPressed) state.speed = Math.min(state.speed + 2, state.maxSpeed); else if (state.brakePressed) state.speed = Math.max(state.speed - 4, 0); else if (state.speed > 0) state.speed = Math.max(state.speed - 0.5, 0); if (state.speed > 0) state.mileage += state.speed * 0.01; updateUI(); }, 100); } updateUI(); }
-    function toggleDoors() { if (!state.inCar) { $('actionHint').innerHTML = '⚠️ Ты не в машине!'; return; } state.doorsLocked = !state.doorsLocked; updateUI(); }
-    function enterCar() { if (state.inCar) { $('actionHint').innerHTML = '⚠️ Ты уже в машине!'; return; } state.inCar = true; state.engineOn = false; state.speed = 0; state.doorsLocked = true; if (state.interval) { clearInterval(state.interval); state.interval = null; } updateUI(); $('actionHint').innerHTML = '🚗 Ты сел в Banshee 900R. Заведи двигатель!'; }
-    function exitCar() { if (!state.inCar) { $('actionHint').innerHTML = '⚠️ Ты и так вне машины!'; return; } state.inCar = false; state.engineOn = false; state.speed = 0; if (state.interval) { clearInterval(state.interval); state.interval = null; } state.doorsLocked = true; updateUI(); $('actionHint').innerHTML = '🚶 Ты вышел из машины.'; }
-    function setupHold(btn, onStart, onEnd) { btn.addEventListener('mousedown', onStart); btn.addEventListener('mouseup', onEnd); btn.addEventListener('mouseleave', onEnd); btn.addEventListener('touchstart', e => { e.preventDefault(); onStart(); }); btn.addEventListener('touchend', e => { e.preventDefault(); onEnd(); }); btn.addEventListener('touchcancel', e => { e.preventDefault(); onEnd(); }); }
-    setupHold($('btnGas'), () => { state.gasPressed = true; if (!state.engineOn && state.inCar) startEngine(); }, () => state.gasPressed = false);
-    setupHold($('btnBrake'), () => state.brakePressed = true, () => state.brakePressed = false);
-    $('btnEngine').addEventListener('click', startEngine);
-    $('btnDoors').addEventListener('click', toggleDoors);
-    $('btnEnter').addEventListener('click', enterCar);
-    $('btnExit').addEventListener('click', exitCar);
-    updateUI();
-</script>
 </body>
-</html>
+        </html>
