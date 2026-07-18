@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Генератор удостоверений</title>
+    <title>Удостоверение МВД</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Courier New', monospace;
         }
         body {
             background: #0a0a14;
-            color: #e8edf5;
             display: flex;
             justify-content: center;
             padding: 24px 16px;
@@ -34,34 +33,36 @@
         }
 
         .title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 16px;
             text-align: center;
             color: #fbbf24;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
         }
 
         .field {
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
         .field label {
             display: block;
-            font-size: 12px;
-            color: #8f9bb3;
-            margin-bottom: 4px;
+            font-size: 11px;
+            color: #6b7a93;
+            margin-bottom: 2px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .field input {
             width: 100%;
-            padding: 12px 14px;
-            border-radius: 14px;
+            padding: 10px 12px;
+            border-radius: 12px;
             border: 1px solid #2a2a44;
             background: #0d0d18;
             color: #fff;
-            font-size: 15px;
+            font-size: 14px;
             outline: none;
             transition: 0.2s;
+            font-family: 'Segoe UI', sans-serif;
         }
         .field input:focus {
             border-color: #fbbf24;
@@ -76,26 +77,27 @@
             background: linear-gradient(135deg, #f7971e, #ffd200);
             color: #0b0b12;
             font-weight: 700;
-            font-size: 17px;
+            font-size: 16px;
             cursor: pointer;
             transition: 0.15s;
             box-shadow: 0 8px 30px rgba(251, 191, 36, 0.15);
-            margin-top: 8px;
+            margin-top: 6px;
         }
         .btn:active {
             transform: scale(0.96);
             opacity: 0.8;
         }
 
-        /* Удостоверение */
+        /* ===== УДОСТОВЕРЕНИЕ (как на фото) ===== */
         .id-card {
-            background: #f5f0e8;
+            background: #0b0b12;
             border-radius: 16px;
             padding: 24px 18px 18px;
-            border: 3px solid #b8860b;
-            box-shadow: 0 0 50px rgba(184, 134, 11, 0.06);
+            border: 3px solid #d4a017;
+            box-shadow: 0 0 50px rgba(212, 160, 23, 0.06);
             display: none;
-            color: #1a1a2e;
+            color: #d4a017;
+            font-family: 'Courier New', monospace;
             position: relative;
         }
         .id-card.active {
@@ -104,19 +106,19 @@
 
         .id-card .header {
             text-align: center;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 800;
-            letter-spacing: 3px;
-            border-bottom: 2px solid #b8860b;
+            letter-spacing: 2px;
+            color: #d4a017;
+            border-bottom: 2px solid #d4a017;
             padding-bottom: 8px;
             margin-bottom: 10px;
-            color: #1a1a2e;
             text-transform: uppercase;
         }
         .id-card .header .sub {
             font-size: 10px;
             font-weight: 400;
-            color: #4a3a2a;
+            color: #a08050;
             letter-spacing: 1px;
         }
 
@@ -125,18 +127,18 @@
             justify-content: space-between;
             padding: 4px 0;
             font-size: 13px;
-            border-bottom: 1px dashed #d0c8b8;
+            border-bottom: 1px dashed #2a2a3a;
         }
         .id-card .row:last-child {
             border-bottom: none;
         }
         .id-card .row .label {
-            color: #6a5a4a;
+            color: #a08050;
             font-weight: 600;
         }
         .id-card .row .value {
             font-weight: 700;
-            color: #1a1a2e;
+            color: #d4a017;
             text-align: right;
         }
 
@@ -144,14 +146,14 @@
             text-align: center;
             margin-top: 12px;
             font-size: 11px;
-            color: #8a7a6a;
-            border-top: 1px solid #d0c8b8;
+            color: #a08050;
+            border-top: 1px solid #2a2a3a;
             padding-top: 10px;
             letter-spacing: 1px;
         }
         .id-card .stamp .date {
             font-weight: 700;
-            color: #b8860b;
+            color: #d4a017;
         }
 
         .reset-btn {
@@ -179,32 +181,33 @@
 
         <div class="field">
             <label>Имя</label>
-            <input type="text" id="name" placeholder="Алексей">
+            <input type="text" id="name" placeholder="Egor">
         </div>
         <div class="field">
             <label>Фамилия</label>
-            <input type="text" id="surname" placeholder="Иванов">
+            <input type="text" id="surname" placeholder="Famin">
         </div>
         <div class="field">
             <label>Звание</label>
-            <input type="text" id="rank" placeholder="Полковник полиции">
+            <input type="text" id="rank" placeholder="Капитан полиции">
         </div>
         <div class="field">
             <label>Подразделение</label>
-            <input type="text" id="division" placeholder="ГИБДД">
+            <input type="text" id="division" placeholder="Управление полиции BLACK RUSSIA">
         </div>
         <div class="field">
             <label>Организация</label>
-            <input type="text" id="organization" placeholder="МВД РФ">
+            <input type="text" id="organization" placeholder="МВД ЮЖНОГО (RP)">
         </div>
 
         <button class="btn" id="generateBtn">Создать удостоверение</button>
     </div>
 
+    <!-- Удостоверение как на фото -->
     <div class="card id-card" id="idCard">
         <div class="header">
-            🛡️ УДОСТОВЕРЕНИЕ
-            <div class="sub">МВД РОССИЙСКОЙ ФЕДЕРАЦИИ</div>
+            🛡️ МВД ЮЖНОГО (RP)
+            <div class="sub">BLACK RUSSIA</div>
         </div>
 
         <div class="row">
@@ -229,8 +232,8 @@
         </div>
 
         <div class="stamp">
-            🟡 Действительно до 01.01.2026 г.
-            <div style="font-size:9px; color:#8a7a6a; margin-top:4px;">Серия RP-ID № 77777</div>
+            🟡 Личный № 616661 · RP-ID № 77777
+            <div style="font-size:9px; color:#a08050; margin-top:4px;">Действительно до 01.01.2026 г.</div>
         </div>
 
         <button class="reset-btn" id="resetBtn">Создать новое</button>
@@ -249,11 +252,11 @@
     const idCard = document.getElementById('idCard');
 
     function generate() {
-        const name = nameInput.value.trim() || 'Алексей';
-        const surname = surnameInput.value.trim() || 'Иванов';
-        const rank = rankInput.value.trim() || 'Полковник полиции';
-        const division = divisionInput.value.trim() || 'ГИБДД';
-        const org = orgInput.value.trim() || 'МВД РФ';
+        const name = nameInput.value.trim() || 'Egor';
+        const surname = surnameInput.value.trim() || 'Famin';
+        const rank = rankInput.value.trim() || 'Капитан полиции';
+        const division = divisionInput.value.trim() || 'Управление полиции BLACK RUSSIA';
+        const org = orgInput.value.trim() || 'МВД ЮЖНОГО (RP)';
 
         document.getElementById('outName').textContent = name;
         document.getElementById('outSurname').textContent = surname;
@@ -277,4 +280,4 @@
     resetBtn.addEventListener('click', resetForm);
 </script>
 </body>
-</html>
+</html>                
