@@ -5,41 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>.</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            background: #12121e;
-            min-height: 100vh;
+            background: #0b0b14;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            margin: 0;
             font-family: monospace;
-        }
-        .center {
-            text-align: center;
             color: #4a5a72;
+        }
+        div {
+            text-align: center;
             font-size: 14px;
             letter-spacing: 1px;
             line-height: 2;
         }
-        .line {
-            width: 30px;
-            height: 1px;
-            background: #2a2a44;
-            margin: 12px auto 0;
+        span {
+            color: #2a2a44;
+            display: block;
+            margin-top: 8px;
+            font-size: 11px;
         }
     </style>
 </head>
 <body>
-    <div class="center">
-        <div>—</div>
-        <div>·</div>
-        <div>—</div>
-        <div class="line"></div>
-        <div style="font-size:11px; color:#2a2a44; margin-top:16px;">пусто</div>
+    <div>
+        —<br>
+        ·<br>
+        —<br>
+        <span>здесь ничего нет</span>
     </div>
 </body>
 </html>
