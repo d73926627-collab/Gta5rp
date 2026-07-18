@@ -2,232 +2,251 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Moscow Streets RP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>🎮 Игровой профиль</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
+
         body {
-            background: #0b0b12;
-            color: #e0e0e0;
+            background: #08080e;
+            color: #eee;
             display: flex;
             justify-content: center;
             padding: 20px 12px;
+            min-height: 100vh;
         }
+
         .container {
-            max-width: 420px;
+            max-width: 440px;
             width: 100%;
         }
 
-        /* ===== ШАПКА ===== */
-        .header {
-            background: linear-gradient(145deg, #14141f, #1a1a2e);
-            border-radius: 28px;
-            padding: 24px 18px;
-            border: 1px solid #2a2a44;
-            text-align: center;
-            margin-bottom: 18px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-        }
-        .header h1 {
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #f7971e, #ffd200);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
-        }
-        .header p {
-            color: #8f9bb3;
-            font-size: 14px;
-            margin-top: 4px;
-        }
-
-        /* ===== ОНЛАЙН ===== */
-        .online-box {
-            background: #0d0d1a;
-            padding: 14px;
-            border-radius: 18px;
-            border: 1px solid #282840;
-            text-align: center;
-            margin-bottom: 18px;
-        }
-        .online-box .num {
-            font-size: 38px;
-            font-weight: 800;
-            color: #4ade80;
-        }
-        .online-box .label {
-            color: #8f9bb3;
-            font-size: 13px;
-        }
-
-        /* ===== БЛОК О РОЛИ ===== */
+        /* карточки */
         .card {
             background: #12121e;
-            border-radius: 22px;
-            padding: 18px 16px;
-            border: 1px solid #282840;
+            border-radius: 28px;
+            padding: 22px 18px;
             margin-bottom: 16px;
-        }
-        .card h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #fbbf24;
-        }
-        .card p {
-            color: #b0bedb;
-            font-size: 14px;
-            line-height: 1.6;
+            border: 1px solid #24243a;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.7);
         }
 
-        /* ===== КАК ИГРАТЬ ===== */
-        .steps {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 6px;
+        /* Аватар и ник */
+        .profile {
+            text-align: center;
         }
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #0d0d1a;
-            padding: 12px 14px;
-            border-radius: 16px;
-            border: 1px solid #1e1e32;
-        }
-        .step .num {
-            background: #fbbf24;
-            color: #0b0b12;
-            width: 28px;
-            height: 28px;
+        .avatar {
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
-            flex-shrink: 0;
+            margin: 0 auto 12px;
+            font-size: 44px;
+            font-weight: 800;
+            color: #0b0b12;
+            box-shadow: 0 0 30px rgba(255, 200, 0, 0.15);
         }
-        .step .text {
+        .nickname {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        .status {
             font-size: 14px;
-            color: #c8d0e0;
+            color: #4ade80;
+            margin-top: 2px;
+        }
+        .status i {
+            margin-right: 4px;
         }
 
-        /* ===== СЕРВЕРА ===== */
-        .server-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .server-item {
-            background: #0d0d1a;
-            border: 1px solid #282840;
-            border-radius: 14px;
-            padding: 14px 8px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 15px;
-            color: #e0e0e0;
-            transition: 0.15s;
-        }
-        .server-item span {
-            display: block;
-            font-weight: 400;
+        .badge {
+            display: inline-block;
+            background: #1a1a30;
+            padding: 4px 14px;
+            border-radius: 30px;
             font-size: 11px;
+            color: #aab;
+            border: 1px solid #2a2a44;
+            margin: 4px 2px;
+        }
+
+        /* Статистика */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .stat-item {
+            background: #0d0d18;
+            border-radius: 16px;
+            padding: 10px 6px;
+            text-align: center;
+            border: 1px solid #1e1e32;
+        }
+        .stat-item .num {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fbbf24;
+        }
+        .stat-item .label {
+            font-size: 10px;
             color: #6b7a93;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Машины */
+        .car-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .car-tag {
+            background: #0d0d18;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            border: 1px solid #2a2a44;
+            color: #c8d0e0;
+        }
+        .car-tag i {
+            margin-right: 4px;
+            color: #fbbf24;
+        }
+
+        /* Достижения */
+        .achieve-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .achieve-item {
+            background: #0d0d18;
+            border-radius: 14px;
+            padding: 10px 4px;
+            text-align: center;
+            border: 1px solid #1e1e32;
+        }
+        .achieve-item i {
+            font-size: 24px;
+            color: #fbbf24;
+        }
+        .achieve-item .name {
+            font-size: 10px;
+            color: #8f9bb3;
             margin-top: 2px;
         }
 
-        /* ===== ФУТЕР (ЮРИДИЧЕСКИЙ ТЕКСТ) ===== */
         .footer-legal {
-            margin-top: 24px;
-            padding: 16px 12px;
+            margin-top: 20px;
+            padding: 12px 10px;
             text-align: center;
             font-size: 10px;
-            color: #4a5568;
-            line-height: 1.6;
+            color: #4a5a72;
             border-top: 1px solid #1a1a2e;
-        }
-        .footer-legal a {
-            color: #6b7a93;
-            text-decoration: none;
-        }
-
-        /* ===== АДАПТИВ ===== */
-        @media (max-width: 380px) {
-            .header h1 { font-size: 22px; }
-            .online-box .num { font-size: 30px; }
-            .server-grid { grid-template-columns: 1fr 1fr; }
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
 <div class="container">
 
-    <!-- Шапка -->
-    <div class="header">
-        <h1>MOSCOW STREETS RP</h1>
-        <p>Лучший Role Play сервер в GTA 5</p>
+    <!-- ===== ПРОФИЛЬ ===== -->
+    <div class="card profile">
+        <div class="avatar">🔥</div>
+        <div class="nickname">Moscow_Player</div>
+        <div class="status"><i class="fas fa-circle" style="color:#4ade80; font-size:10px;"></i> В игре</div>
+        <div style="margin-top: 8px;">
+            <span class="badge"><i class="fas fa-star"></i> Легенда</span>
+            <span class="badge"><i class="fas fa-shield"></i> VIP</span>
+        </div>
     </div>
 
-    <!-- Онлайн -->
-    <div class="online-box">
-        <div class="num">1 243</div>
-        <div class="label">Сейчас играют</div>
-    </div>
-
-    <!-- Что такое RP -->
+    <!-- ===== СТАТИСТИКА ===== -->
     <div class="card">
-        <h3>Что такое Roleplay?</h3>
-        <p>Roleplay — это игровой режим, в котором ты примеряешь на себя роль. Играй за полицейского, бандита, бизнесмена или простого водителя. Живи жизнью персонажа в Москве. Почувствуй атмосферу настоящего RP!</p>
-    </div>
-
-    <!-- Как играть -->
-    <div class="card">
-        <h3>Как начать играть?</h3>
-        <div class="steps">
-            <div class="step">
-                <div class="num">1</div>
-                <div class="text">Купить и установить GTA V (Legacy)</div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span style="font-weight:700; font-size:16px;">📊 Статистика</span>
+            <span style="color:#6b7a93; font-size:12px;">за всё время</span>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="num">246</div>
+                <div class="label">Игр</div>
             </div>
-            <div class="step">
-                <div class="num">2</div>
-                <div class="text">Установить RAGE MP лаунчер</div>
+            <div class="stat-item">
+                <div class="num">84</div>
+                <div class="label">Победы</div>
             </div>
-            <div class="step">
-                <div class="num">3</div>
-                <div class="text">Выбрать сервер и начать играть</div>
+            <div class="stat-item">
+                <div class="num">1.2k</div>
+                <div class="label">Убийств</div>
             </div>
         </div>
     </div>
 
-    <!-- Наши сервера -->
+    <!-- ===== МАШИНЫ ===== -->
     <div class="card">
-        <h3>Наши сервера</h3>
-        <div class="server-grid">
-            <div class="server-item">Арбат <span>РП</span></div>
-            <div class="server-item">Патрики <span>РП</span></div>
-            <div class="server-item">Рублёвка <span>РП</span></div>
-            <div class="server-item">Тверской <span>РП</span></div>
-            <div class="server-item" style="grid-column: 1 / -1;">Центр <span>МЕГА-РП</span></div>
+        <div style="font-weight:700; font-size:16px; margin-bottom:4px;">🚗 Любимые машины</div>
+        <div class="car-list">
+            <span class="car-tag"><i class="fas fa-car"></i> Banshee</span>
+            <span class="car-tag"><i class="fas fa-car"></i> Comet</span>
+            <span class="car-tag"><i class="fas fa-car"></i> Sultan</span>
+            <span class="car-tag"><i class="fas fa-car"></i> Elegy</span>
+            <span class="car-tag"><i class="fas fa-truck"></i> Sandking</span>
         </div>
     </div>
 
-    <!-- Юридический футер -->
+    <!-- ===== ДОСТИЖЕНИЯ ===== -->
+    <div class="card">
+        <div style="font-weight:700; font-size:16px; margin-bottom:4px;">🏆 Достижения</div>
+        <div class="achieve-grid">
+            <div class="achieve-item">
+                <i class="fas fa-skull"></i>
+                <div class="name">100 убийств</div>
+            </div>
+            <div class="achieve-item">
+                <i class="fas fa-trophy"></i>
+                <div class="name">10 побед</div>
+            </div>
+            <div class="achieve-item">
+                <i class="fas fa-rocket"></i>
+                <div class="name">Легенда</div>
+            </div>
+            <div class="achieve-item">
+                <i class="fas fa-gem"></i>
+                <div class="name">Миллионер</div>
+            </div>
+            <div class="achieve-item">
+                <i class="fas fa-crown"></i>
+                <div class="name">Король</div>
+            </div>
+            <div class="achieve-item">
+                <i class="fas fa-shield-halved"></i>
+                <div class="name">Защитник</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ФУТЕР ===== -->
     <div class="footer-legal">
-        Moscow Streets RP — это некоммерческий игровой проект.<br>
-        Мы не связаны с компанией Rockstar Games.<br>
-        Все игровые события и персонажи являются вымышленными.<br>
-        Сайт создан фанатами для фанатов.
+        🎮 Игровой профиль создан для Moscow Streets RP<br>
+        Все данные вымышлены и обновляются в реальном времени
     </div>
 
 </div>
 </body>
-        </html>
+    </html>
